@@ -1,0 +1,22 @@
+<form (ngSubmit)="FormSubmit()">
+  <fieldset>
+    <legend>Login Page</legend>
+
+    <div>
+      <label>
+        User name:
+        <input [(ngModel)]="model().userName" name="userName" required placeholder="user name or email address" />
+      </label>
+    </div>
+    <div>
+      <label>
+        Password:
+        <input [(ngModel)]="model().password" type="password" name="password" required placeholder="user password" />
+      </label>
+    </div>
+    <div>
+      <button type="submit">Login</button>
+      <a routerLink="/register">New?</a>
+    </div>
+  </fieldset>
+</form>

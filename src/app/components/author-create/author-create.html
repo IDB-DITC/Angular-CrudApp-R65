@@ -1,0 +1,94 @@
+<form (ngSubmit)="SaveData()">
+  <fieldset>
+    <legend>Author Entry</legend>
+    <!--<div>
+    <label>
+      ID: <input name="authorName" [(ngModel)]="model().id" />
+    </label>
+  </div>-->
+
+    <div>
+      <label>
+        Name: <input name="authorName" [(ngModel)]="model().authorName" />
+      </label>
+    </div>
+
+    <div>
+      <label class="e-float-text e-label-top" for="upload">Choose a file</label>
+      <input type="file" #imageInput
+             (change)="uploadImage(imageInput)"
+             accept="image/*"
+             [multiple]="false"
+             class="e-input" />
+
+      <figure>
+        <img  [src]="imageUpload()?.imageData()" width="300" />
+        <figcaption>{{imageUpload()?.imageName()}}</figcaption>
+      </figure>
+    </div>
+
+
+
+    <table border="1">
+      <caption>Books</caption>
+      <tr>
+        <th>ISBN</th>
+        <th>Title</th>
+        <th>Publish Date</th>
+        <th>Edition</th>
+        <th>Genre</th>
+        <th>Available?</th>
+        <th (click)="addNew()">
+          Add New
+        </th>
+      </tr>
+
+      <tr *ngFor="let book of model().books; let idx=index;">
+        <td>
+          <input name="book[{{idx}}].isbn" [(ngModel)]="book.isbn" />
+        </td>
+        <td>
+          <input name="book[{{idx}}].title" [(ngModel)]="book.title" />
+        </td>
+        <td>
+          <input name="book[{{idx}}].publishDate" type="date" [(ngModel)]="book.publishDate" />
+        </td>
+        <td>
+          <input name="book[{{idx}}].edition" type="range" min="1" max="10" [(ngModel)]="book.edition" />
+          {{book.edition}}
+        </td>
+        <td>
+          <select name="book[{{idx}}].genre" [(ngModel)]="book.genre">
+            <option>Select Genre</option>
+
+            @for( genre of selectListsData; track genre)
+            {
+            <option [value]="genre">
+              {{genre}}
+            </option>
+            }
+
+          </select>
+        </td>
+        <td>
+          <label>
+            Abailable?
+            <input name="book[{{idx}}].available" type="checkbox" [(ngModel)]="book.available" />
+          </label>
+
+        </td>
+
+        <td (click)="removeBook(idx)">
+          Delete
+        </td>
+      </tr>
+
+
+    </table>
+
+
+    <button type="submit">Save</button>
+    <button type="button" (click)="goToIndex()">Index</button>
+    <a routerLink="/index">Cancel</a>
+  </fieldset>
+</form>

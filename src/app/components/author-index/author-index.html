@@ -1,0 +1,59 @@
+<a routerLink="/create" class="btn btn-success">Create</a>
+<button (click)="loadData()">Refresh</button>
+
+<table class="table table-success">
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Photo</th>
+    <th>Books</th>
+
+  </tr>
+
+  <tr *ngFor="let ath of data()">
+    <td>{{ath.id}}</td>
+    <td>{{ath.authorName}}</td>
+    <td>
+      <img *ngIf="ath.photo" width="120" [src]="ath.photo" />
+    </td>
+    <td>
+      <ol>
+        <li *ngFor="let b of ath.books">
+          {{b.title}}
+        </li>
+      </ol>
+    </td>
+    <th>
+      <a [routerLink]="['/edit/', ath.id]">Edit</a>
+      <button (click)="DeleteData(ath.id)">Delete</button>
+    </th>
+  </tr>
+
+</table>
+
+
+<hr />
+
+
+<!--<table mat-table [dataSource]="dataList" class="mat-elevation-z8">-->
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+  <!-- Position Column -->
+  <!--<ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> ID </th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>-->
+
+  <!-- Name Column -->
+  <!--<ng-container matColumnDef="authorName">
+    <th mat-header-cell *matHeaderCellDef> Author Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.authorName}} </td>
+  </ng-container>
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>-->
+
+
