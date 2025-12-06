@@ -22,7 +22,11 @@ export class AuthorCreate {
   SaveData() {
     this.repo.PostData(this.model()).subscribe(() => {
       this.router.navigate(["index"]);
-    });
+    },
+      (err: Error) => {
+        alert(JSON.stringify(err));
+        console.error(err);
+      });
   }
   goToIndex() {
     this.router.navigate(["index"]);

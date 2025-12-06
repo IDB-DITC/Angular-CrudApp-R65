@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Login } from '../models/login';
 import { Register } from '../models/register';
 
-const tokenKey: string = "jwt_token";
+export const tokenKey: string = "jwt_token";
 
 
 export const LoggedIn = signal<boolean>(false);
