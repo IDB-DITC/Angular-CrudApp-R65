@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { Genre, GenreList } from '../../models/genre';
 import { Book } from '../../models/book';
 import { ImageUpload } from '../../services/image-upload';
+import { NgModel, ValidationErrors } from '@angular/forms';
+import { ValidationHelper } from '../../services/validation-helper';
 
 @Component({
   selector: 'app-author-create',
@@ -15,14 +17,18 @@ import { ImageUpload } from '../../services/image-upload';
 export class AuthorCreate {
   model = signal<Author>(new Author());
   imageUpload = signal<ImageUpload | undefined>(undefined);
-  constructor(private repo: AuthorRepository, private router: Router, upload: ImageUpload) {
+  constructor(private repo: AuthorRepository, private router: Router, upload: ImageUpload, public ValidationHelper: ValidationHelper) {
     this.imageUpload.set(upload);
   }
 
   SaveData() {
     this.repo.PostData(this.model()).subscribe(() => {
       this.router.navigate(["index"]);
-    });
+    },
+      (err: Error) => {
+        alert(JSON.stringify(err));
+        console.error(err);
+      });
   }
   goToIndex() {
     this.router.navigate(["index"]);
@@ -73,6 +79,6 @@ export class AuthorCreate {
 
   //}
 
-
+ 
 
 }

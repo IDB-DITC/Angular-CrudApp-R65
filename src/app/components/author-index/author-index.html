@@ -17,16 +17,22 @@
       <img *ngIf="ath.photo" width="120" [src]="ath.photo" />
     </td>
     <td>
-      <ol>
+      <ol *ngIf="ath.books.length>0">
         <li *ngFor="let b of ath.books">
           {{b.title}}
         </li>
       </ol>
     </td>
-    <th>
-      <a [routerLink]="['/edit/', ath.id]">Edit</a>
-      <button (click)="DeleteData(ath.id)">Delete</button>
-    </th>
+    <td class="align-middle">
+      <div class="btn-group ">
+        <a [routerLink]="['/edit/', ath.id]" class="btn btn-warning">Edit</a>
+        <button (click)="DeleteData(ath.id)" class="btn btn-danger">Delete</button>
+        <button class="btn btn-info" (click)="LoadReport(ath.id)">
+          Download
+        </button>
+      </div>
+     
+    </td>
   </tr>
 
 </table>

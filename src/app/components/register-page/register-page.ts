@@ -1,7 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { AuthService } from '../../services/auth-service';
 import { Register } from '../../models/register';
 import { Router } from '@angular/router';
+import { ValidationHelper } from '../../services/validation-helper';
 
 @Component({
   selector: 'app-register-page',
@@ -11,9 +12,10 @@ import { Router } from '@angular/router';
 })
 export class RegisterPage {
   model = signal<Register>(new Register());
-  constructor(private auth: AuthService, private router: Router) {
+  constructor(private auth: AuthService, private router: Router, public ValidationHelper: ValidationHelper) {
 
   }
+
 
   FormSubmit() {
 
@@ -30,5 +32,7 @@ export class RegisterPage {
         console.error(error);
       }
     );
+
   }
+
 }

@@ -1,4 +1,4 @@
-<form (ngSubmit)="SaveData()">
+<form (ngSubmit)="SaveData()" #form="ngForm">
   <fieldset>
     <legend>Author Entry</legend>
     <!--<div>
@@ -7,10 +7,30 @@
     </label>
   </div>-->
 
+
+    <div class="bg-danger text-white p-2 mb-2"
+         *ngIf="form.invalid">
+      There are problems with the form
+      <ul>
+        <li *ngFor="let error of ValidationHelper.getFormValidationMessages(form)">
+          {{error}}
+        </li>
+      </ul>
+    </div>
+
     <div>
       <label>
-        Name: <input name="authorName" [(ngModel)]="model().authorName" />
+        Name: <input name="authorName" [(ngModel)]="model().authorName" required minlength="4" #authorName="ngModel" />
       </label>
+
+      <ul *ngIf="authorName.touched && authorName.errors" class="text-danger">
+
+        <li *ngFor="let error of ValidationHelper.getValidationMessages(authorName, 'Author name')">
+          {{error}}
+        </li>
+      </ul>
+
+
     </div>
 
     <div>
@@ -22,7 +42,7 @@
              class="e-input" />
 
       <figure>
-        <img  [src]="imageUpload()?.imageData()" width="300" />
+        <img [src]="imageUpload()?.imageData()" width="300" />
         <figcaption>{{imageUpload()?.imageName()}}</figcaption>
       </figure>
     </div>
@@ -72,7 +92,7 @@
         </td>
         <td>
           <label>
-            Abailable?
+            Available?
             <input name="book[{{idx}}].available" type="checkbox" [(ngModel)]="book.available" />
           </label>
 

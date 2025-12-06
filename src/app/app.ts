@@ -16,7 +16,7 @@ export class App {
   name = UserName;
 
   ngOnInit() {
-    
+    this.auth.isLoggedIn();
   }
 
 

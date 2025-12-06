@@ -3,14 +3,22 @@
     <legend>Author Update</legend>
     <div>
       <label>
-        ID: <input name="id" readonly [(ngModel)]="model().id" />
+        ID: <input name="id" readonly [(ngModel)]="model().id"  />
       </label>
+
+     
     </div>
 
     <div>
       <label>
-        Name: <input name="authorName" [(ngModel)]="model().authorName" />
+        Name: <input name="authorName" [(ngModel)]="model().authorName" required minlength="4" #authorName="ngModel" />
       </label>
+      <ul *ngIf="authorName.touched && authorName.errors" class="text-danger">
+
+        <li *ngFor="let error of ValidationHelper.getValidationMessages(authorName, 'Author name')">
+          {{error}}
+        </li>
+      </ul>
     </div>
     <div>
       <label class="e-float-text e-label-top" for="upload">Choose a file</label>

@@ -5,6 +5,7 @@ import { AuthorRepository } from '../../services/author-repository';
 import { Genre } from '../../models/genre';
 import { Book } from '../../models/book';
 import { ImageUpload } from '../../services/image-upload';
+import { ValidationHelper } from '../../services/validation-helper';
 
 
 @Component({
@@ -16,7 +17,7 @@ import { ImageUpload } from '../../services/image-upload';
 export class AuthorEdit {
   model = signal<Author>(new Author());
   imageUpload = signal<ImageUpload | undefined>(undefined);
-  constructor(private repo: AuthorRepository, private router: Router, route: ActivatedRoute, upload: ImageUpload) {
+  constructor(public ValidationHelper: ValidationHelper,private repo: AuthorRepository, private router: Router, route: ActivatedRoute, upload: ImageUpload) {
 
     let id = route.snapshot.params['id'];
 

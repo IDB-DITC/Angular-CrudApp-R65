@@ -1,13 +1,14 @@
-import { Injectable , signal} from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Login } from '../models/login';
 import { Register } from '../models/register';
 
-const tokenKey: string = "jwt_token";
+export const tokenKey: string = "jwt_token";
+
 
 
 export const LoggedIn = signal<boolean>(false);
-export const UserName = signal<string>('');
+export const UserName = signal<string|null>(null);
 
 
 
@@ -21,24 +22,26 @@ export class AuthService {
   constructor(private http: HttpClient) {
 
   }
-  Login(model: Login):any {
+  Login(model: Login): any {
     return this.http.post<Login>(`${this.api}/login`, model);
   }
 
-  Register(model: Register):any {
+  Register(model: Register): any {
     return this.http.post<Register>(`${this.api}/register`, model);
   }
 
-  saveToken(token: string, name:string) {
+  saveToken(token: string, name: string) {
     localStorage.setItem(tokenKey, token);
+    localStorage.setItem("name", name);
     LoggedIn.set(true);
     UserName.set(name);
   }
 
   Logout() {
-    LoggedIn.set( false);
+    LoggedIn.set(false);
     UserName.set('');
     localStorage.removeItem(tokenKey);
+    localStorage.removeItem("name");
   }
 
   get Token(): string | null {
@@ -46,13 +49,16 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    var token = localStorage.getItem(tokenKey);
+    var token = this.Token;
+    var name = localStorage.getItem("name");
     if (token) {
       LoggedIn.set(true);
+      UserName.set(name);
       return true;
     }
     else {
       LoggedIn.set(false);
+      UserName.set('');
       return false;
     }
   }

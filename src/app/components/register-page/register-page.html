@@ -5,14 +5,19 @@
     <div>
       <label>
         User name:
-        <input [(ngModel)]="model().userName" name="userName" required placeholder="user name or email address" />
+        <input [(ngModel)]="model().userName" name="userName" autocomplete="off" #user="ngModel" required placeholder="user name or email address" />
       </label>
+      <ul *ngIf="user.invalid && user.touched" class="list-unstyled">
+        <li *ngFor="let err of ValidationHelper.getValidationMessages(user,'user name')" class="text-danger">
+          {{err}}
+        </li>
+      </ul>
     </div>
 
     <div>
       <label>
         Password:
-        <input [(ngModel)]="model().password" type="password" name="password" required placeholder="user password" />
+        <input [(ngModel)]="model().password" autocomplete="off" type="password" name="password" required placeholder="user password" />
       </label>
     </div>
     <div>
