@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { AuthService } from '../../services/auth-service';
 import { Router } from '@angular/router';
 import { Login } from '../../models/login';
+import { ValidationHelper } from '../../services/validation-helper';
 
 @Component({
   selector: 'app-login-page',
@@ -11,7 +12,7 @@ import { Login } from '../../models/login';
 })
 export class LoginPage {
   model = signal<Login>(new Login());
-  constructor(private auth: AuthService, private router: Router) {
+  constructor(private auth: AuthService, private router: Router, public ValidationHelper: ValidationHelper) {
    
   }
 

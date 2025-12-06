@@ -1,7 +1,7 @@
 import { Component,  signal} from '@angular/core';
 import { Author } from '../../models/author';
 import { AuthorRepository } from '../../services/author-repository';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-author-index',
   standalone: false,
@@ -18,7 +18,8 @@ export class AuthorIndex {
 
   //displayedColumns = ["id, authorName"];
   constructor(
-    private repo: AuthorRepository
+    private repo: AuthorRepository,
+    private toast: ToastrService
     //, private cdr: ChangeDetectorRef
   )
   {
@@ -33,6 +34,7 @@ export class AuthorIndex {
       console.log(this.data());
       //this.cdr.markForCheck();
       //this.dataList = this.data();
+      this.toast.success("data loades success", "Load")
     })
   }
 
